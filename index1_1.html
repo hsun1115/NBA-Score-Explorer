@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hsun1115/NBA-Score-Explorer/master/CSS/index1_1.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src =https://cdn.jsdelivr.net/gh/hsun1115/NBA-Score-Explorer/master/JS/features.js></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {packages: ['corechart', 'table']});
+        //google.charts.setOnLoadCallback(drawGID);
+        function upload(){
+            //checkVisitor();
+            google.charts.setOnLoadCallback(drawGID);
+        }
+        // function upload2(){
+        //     //checkVisitor();
+        //     google.charts.setOnLoadCallback(multiCharts);
+        // }
+        var HV=false;
+        var x;
+        var id;
+        var flag=false;
+        var team1;
+        var team2;
+        var Str='SELECT A, F WHERE E= "'+id+'"label F "'+id+'"';
+        function showDiv() {
+            var y=document.getElementById("test").value;
+            if(y==="0"){
+                flag=false;
+                document.getElementById('chart_div').style.display = "block";
+                document.getElementById('table_div').style.display = "none";
+            }else if(y==="1"){
+                flag=true;
+                document.getElementById('chart_div').style.display = "none";
+                document.getElementById('table_div').style.display = "block";
+            }
+            checkVisitor();
+        }
+        function selectTeam() {
+            x =document.getElementById("mySelect").value;
+            id=x;
+            checkVisitor();
+        }
+        function checkVisitor() {
+            var v = document.getElementById("visitor").value;
+            if(v==="0"){
+                Str='SELECT A, F WHERE E= "'+id+'"label F "'+id+' Home"';
+            }else if(v==="1"){
+                Str='SELECT A, D WHERE C= "'+id+'"label D "'+id+' Visitor"';
+            }else if(v==="2"){
+                HV=true;
+                multiCharts();
+                HV=false;
+                return;
+            }
+            upload();
+        }
+        // function textArray() {
+        //     var array=[];
+        //     var stringArray = document.getElementById('text-area').value.split('\n');
+        //     for(var i=0;i<stringArray.length;i++){
+        //     array.push(stringArray[i].split(" "));
+        //     }
+        //     console.log(array);
+        // }
+        //'SELECT A, D WHERE C= "'+id+'"label D "'+id+'"'
+    </script>
+</head>
+<h1>NBA Score Explorer</h1>
+<body>
+<div class="filter_container">
+<div><span>Choose a data Type <br>(Default Line Chart)</span><br>
+    <select id="test" name="form_select" onchange="showDiv()">
+        <option value="0">Line</option>
+        <option value ="1">Table</option>
+    </select>
+</div>
+<div>
+<span>Choose a team to display</span><br>
+<select id="mySelect">
+    <option value="" disabled selected>Select your option</option>
+    <option value="Atlanta Hawks">Atlanta Hawks</option>
+    <option value="Boston Celtics">Boston Celtics</option>
+    <option value="Brooklyn Nets">Brooklyn Nets</option>
+    <option value="Charlotte Hornets">Charlotte Hornets</option>
+    <option value="Chicago Bulls">Chicago Bulls</option>
+    <option value="Cleveland Cavaliers">Cleveland Cavaliers</option>
+    <option value="Dallas Mavericks">Dallas Mavericks</option>
+    <option value="Denver Nuggets">Denver Nuggets</option>
+    <option value="Detroit Pistons">Detroit Pistons</option>
+    <option value="Golden State Warriors">Golden State Warriors</option>
+    <option value="Houston Rockets">Houston Rockets</option>
+    <option value="Indiana Pacers">Indiana Pacers</option>
+    <option value="Los Angeles Clippers">Los Angeles Clippers</option>
+    <option value="Los Angeles Lakers">Los Angeles Lakers</option>
+    <option value="Memphis Grizzlies">Memphis Grizzlies</option>
+    <option value="Miami Heat">Miami Heat</option>
+    <option value="Milwaukee Bucks">Milwaukee Bucks</option>
+    <option value="Minnesota Timberwolves">Minnesota Timberwolves</option>
+    <option value="New Orleans Hornets">New Orleans Hornets</option>
+    <option value="New York Knicks">New York Knicks</option>
+    <option value="Oklahoma City Thunder">Oklahoma City Thunder</option>
+    <option value="Orlando Magic">Orlando Magic</option>
+    <option value="Philadelphia Sixers">Philadelphia Sixers</option>
+    <option value="Phoenix Suns">Phoenix Suns</option>
+    <option value="Portland Trail Blazers">Portland Trail Blazers</option>
+    <option value="Sacramento Kings">Sacramento Kings</option>
+    <option value="San Antonio Spurs">San Antonio Spurs</option>
+    <option value="Toronto Raptors">Toronto Raptors</option>
+    <option value="Utah Jazz">Utah Jazz</option>
+    <option value="Washington Wizards">Washington Wizards</option>
+</select>
+    <button onclick="selectTeam()">View Scores</button>
+</div>
+    <div>
+        <span>Choose the second team</span><br>
+        <select id="mySelect2">
+            <option value="" disabled selected>Select your option</option>
+            <option value="Atlanta Hawks">Atlanta Hawks</option>
+            <option value="Boston Celtics">Boston Celtics</option>
+            <option value="Brooklyn Nets">Brooklyn Nets</option>
+            <option value="Charlotte Hornets">Charlotte Hornets</option>
+            <option value="Chicago Bulls">Chicago Bulls</option>
+            <option value="Cleveland Cavaliers">Cleveland Cavaliers</option>
+            <option value="Dallas Mavericks">Dallas Mavericks</option>
+            <option value="Denver Nuggets">Denver Nuggets</option>
+            <option value="Detroit Pistons">Detroit Pistons</option>
+            <option value="Golden State Warriors">Golden State Warriors</option>
+            <option value="Houston Rockets">Houston Rockets</option>
+            <option value="Indiana Pacers">Indiana Pacers</option>
+            <option value="Los Angeles Clippers">Los Angeles Clippers</option>
+            <option value="Los Angeles Lakers">Los Angeles Lakers</option>
+            <option value="Memphis Grizzlies">Memphis Grizzlies</option>
+            <option value="Miami Heat">Miami Heat</option>
+            <option value="Milwaukee Bucks">Milwaukee Bucks</option>
+            <option value="Minnesota Timberwolves">Minnesota Timberwolves</option>
+            <option value="New Orleans Hornets">New Orleans Hornets</option>
+            <option value="New York Knicks">New York Knicks</option>
+            <option value="Oklahoma City Thunder">Oklahoma City Thunder</option>
+            <option value="Orlando Magic">Orlando Magic</option>
+            <option value="Philadelphia Sixers">Philadelphia Sixers</option>
+            <option value="Phoenix Suns">Phoenix Suns</option>
+            <option value="Portland Trail Blazers">Portland Trail Blazers</option>
+            <option value="Sacramento Kings">Sacramento Kings</option>
+            <option value="San Antonio Spurs">San Antonio Spurs</option>
+            <option value="Toronto Raptors">Toronto Raptors</option>
+            <option value="Utah Jazz">Utah Jazz</option>
+            <option value="Washington Wizards">Washington Wizards</option>
+        </select>
+        <button onclick="multiCharts()">Compare</button>
+    </div>
+<div>
+<span>Select Home and/or Visitor</span><br>
+<select id="visitor" onchange="checkVisitor()">
+    <option value="" disabled selected>Select your option</option>
+    <option value="0">Home only</option>
+    <option value ="1">Visitor only</option>
+    <option value ="2">Home+Visitor</option>
+</select>
+</div>
+    <div id="plot-text-area">
+        <span>Customize your Chart</span>
+        <textarea id="text-area"></textarea>
+        <button type="button" onclick="Customizeplot()">Draw Chart</button><br>
+        <span id="sample">inout data sample:<br>10 20<br>30 40<br> use space between each number and 2 numbers each row</span>
+    </div>
+</div>
+<div id="chart_div" style="width: 700px; height: 400px"></div>
+<div id="table_div" style="width: 700px; height: 400px"></div>
+
+<!--<div id="X-Y" style="width: 700px; height: 400px"></div>-->
+</body>
+</html>
